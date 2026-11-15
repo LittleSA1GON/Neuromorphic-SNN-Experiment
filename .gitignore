@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# CIFAR-10 is downloaded automatically
+data/
+
+# Model checkpoints are large; results and plots in outputs/ are kept
+outputs/*.pt
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
