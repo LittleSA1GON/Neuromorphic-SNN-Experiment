@@ -1,0 +1,14 @@
+{
+  "wall_seconds": 1.5277882000000318,
+  "energy_joules": null,
+  "average_board_power_watts": null,
+  "average_gpu_utilization_percent": null,
+  "peak_cuda_allocated_mb": null,
+  "power_samples": 0,
+  "power_unavailable_reason": "CPU execution has no GPU board-power measurement",
+  "images_per_second": 327.2704946929094,
+  "single_image_latency_ms": 6.2734699999964505,
+  "latency_repeats": 10,
+  "measurement_scope": "throughput includes loader and host-to-device transfer",
+  "energy_mj_per_image": null
+}

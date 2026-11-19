@@ -1,0 +1,215 @@
+{
+  "samples": 500,
+  "correct": 137,
+  "accuracy_percent": 27.400000000000002,
+  "accuracy_wilson95_percent": [
+    23.67406256658206,
+    31.47055762228011
+  ],
+  "macro_f1": 0.22357996076160216,
+  "confusion_matrix": [
+    [
+      39,
+      1,
+      0,
+      0,
+      2,
+      0,
+      0,
+      4,
+      0,
+      4
+    ],
+    [
+      20,
+      9,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      1,
+      15
+    ],
+    [
+      9,
+      1,
+      4,
+      0,
+      17,
+      0,
+      12,
+      4,
+      0,
+      3
+    ],
+    [
+      4,
+      0,
+      2,
+      6,
+      15,
+      0,
+      16,
+      5,
+      0,
+      2
+    ],
+    [
+      5,
+      1,
+      3,
+      1,
+      22,
+      0,
+      14,
+      3,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      2,
+      2,
+      23,
+      0,
+      17,
+      3,
+      0,
+      2
+    ],
+    [
+      2,
+      1,
+      0,
+      1,
+      18,
+      1,
+      24,
+      1,
+      0,
+      2
+    ],
+    [
+      1,
+      2,
+      1,
+      2,
+      19,
+      0,
+      6,
+      13,
+      0,
+      6
+    ],
+    [
+      35,
+      3,
+      3,
+      0,
+      2,
+      0,
+      1,
+      1,
+      0,
+      5
+    ],
+    [
+      21,
+      5,
+      1,
+      0,
+      1,
+      0,
+      0,
+      2,
+      0,
+      20
+    ]
+  ],
+  "per_class": [
+    {
+      "class_index": 0,
+      "support": 50,
+      "precision": 0.2846715328467153,
+      "recall": 0.78,
+      "f1": 0.4171122994652406,
+      "class_name": "airplane"
+    },
+    {
+      "class_index": 1,
+      "support": 50,
+      "precision": 0.391304347826087,
+      "recall": 0.18,
+      "f1": 0.2465753424657534,
+      "class_name": "automobile"
+    },
+    {
+      "class_index": 2,
+      "support": 50,
+      "precision": 0.25,
+      "recall": 0.08,
+      "f1": 0.12121212121212122,
+      "class_name": "bird"
+    },
+    {
+      "class_index": 3,
+      "support": 50,
+      "precision": 0.5,
+      "recall": 0.12,
+      "f1": 0.1935483870967742,
+      "class_name": "cat"
+    },
+    {
+      "class_index": 4,
+      "support": 50,
+      "precision": 0.18487394957983194,
+      "recall": 0.44,
+      "f1": 0.26035502958579887,
+      "class_name": "deer"
+    },
+    {
+      "class_index": 5,
+      "support": 50,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "class_name": "dog"
+    },
+    {
+      "class_index": 6,
+      "support": 50,
+      "precision": 0.25263157894736843,
+      "recall": 0.48,
+      "f1": 0.3310344827586207,
+      "class_name": "frog"
+    },
+    {
+      "class_index": 7,
+      "support": 50,
+      "precision": 0.3611111111111111,
+      "recall": 0.26,
+      "f1": 0.3023255813953488,
+      "class_name": "horse"
+    },
+    {
+      "class_index": 8,
+      "support": 50,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "class_name": "ship"
+    },
+    {
+      "class_index": 9,
+      "support": 50,
+      "precision": 0.3333333333333333,
+      "recall": 0.4,
+      "f1": 0.3636363636363636,
+      "class_name": "truck"
+    }
+  ],
+  "loss": 1.8986306610107422
+}

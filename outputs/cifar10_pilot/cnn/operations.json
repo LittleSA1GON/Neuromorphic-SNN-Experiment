@@ -1,0 +1,77 @@
+{
+  "profiled_images": 80,
+  "macs_per_image": 153815552.0,
+  "estimated_acs_per_image": 0,
+  "arithmetic_energy_uj_per_image": 707.5515391999999,
+  "mac_joules": 4.6e-12,
+  "ac_joules": 9e-13,
+  "scope": "45nm arithmetic estimate; excludes memory, routing, normalization and neuron state",
+  "layers": [
+    {
+      "layer": "features.0.0",
+      "dense_macs_per_image": 1769472.0,
+      "macs_per_image": 1769472.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 1.0,
+      "spike_input": false
+    },
+    {
+      "layer": "features.1.0",
+      "dense_macs_per_image": 37748736.0,
+      "macs_per_image": 37748736.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 0.5071653366088867,
+      "spike_input": false
+    },
+    {
+      "layer": "features.3.0",
+      "dense_macs_per_image": 18874368.0,
+      "macs_per_image": 18874368.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 0.5304801940917969,
+      "spike_input": false
+    },
+    {
+      "layer": "features.4.0",
+      "dense_macs_per_image": 37748736.0,
+      "macs_per_image": 37748736.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 0.44510612487792967,
+      "spike_input": false
+    },
+    {
+      "layer": "features.6.0",
+      "dense_macs_per_image": 18874368.0,
+      "macs_per_image": 18874368.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 0.5186660766601563,
+      "spike_input": false
+    },
+    {
+      "layer": "features.7.0",
+      "dense_macs_per_image": 37748736.0,
+      "macs_per_image": 37748736.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 0.41948776245117186,
+      "spike_input": false
+    },
+    {
+      "layer": "classifier.1",
+      "dense_macs_per_image": 1048576.0,
+      "macs_per_image": 1048576.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 0.6599609375,
+      "spike_input": false
+    },
+    {
+      "layer": "classifier.3",
+      "dense_macs_per_image": 2560.0,
+      "macs_per_image": 2560.0,
+      "estimated_acs_per_image": 0,
+      "input_activity": 9.765625e-05,
+      "spike_input": false
+    }
+  ],
+  "firing_rates": {},
+  "element_weighted_firing_rate": null
+}
