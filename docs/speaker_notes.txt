@@ -34,4 +34,3 @@ Slide 10  Changes and enhancements
 - A smaller model and a 30-epoch training budget make the paper's approach practical for this
   project.
 - Compare measured GPU costs with separate energy estimates from operation counts.
-- My contribution makes the notebook easier to run on local NVIDIA GPUs, including Windows.
