@@ -16,12 +16,3 @@ outputs/*.pt
 Thumbs.db
 .vscode/
 .idea/
-
-# Local builds and checkpoints
-tmp/
-.codex-finalizer/
-node_modules/
-.pytest_cache/
-**/best.pt
-**/*.tmp.pt
-.chart-data-*/
