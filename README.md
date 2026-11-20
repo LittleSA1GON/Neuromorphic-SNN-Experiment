@@ -56,13 +56,34 @@ requirements.txt                  packages for running locally
 2. Settings: Accelerator **GPU T4** (the notebook uses one GPU), Internet **on**. Avoid the P100; newer PyTorch versions don't support it.
 3. Run once with `QUICK_RUN = True` to check everything works, then set it to `False` and use *Save Version -> Save & Run All*.
 
-**Locally (GTX 1080 Ti):**
-```bash
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
-pip install -r requirements.txt
+**Locally (NVIDIA CUDA GPU or CPU):**
+Create a virtual environment, then install a matching `torch` / `torchvision` pair using the [official PyTorch selector](https://pytorch.org/get-started/locally/) for your OS, GPU and driver. Install it into the same Python environment used by the notebook kernel. A CPU-only PyTorch build cannot run CUDA.
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+# Install the compatible PyTorch pair from the official selector first.
+python -m pip install -r requirements.txt
+$env:SNN_DEVICE = "cuda:0"
+$env:SNN_BATCH_SIZE = "64"
+$env:SNN_QUICK_RUN = "1"
 jupyter notebook notebooks/snn_vs_ann_tebn.ipynb
 ```
-The cu126 build is needed for Pascal cards like the 1080 Ti. If the SNN runs out of memory, lower `BATCH_SIZE` to 64.
+
+The setup cell reports the device, PyTorch/CUDA build and GPU name, then executes a small CUDA operation before training. If it fails, check the selected Jupyter kernel, driver and wheel compatibility. Remove `SNN_QUICK_RUN` or set it to `0` for the full run. Lower `SNN_BATCH_SIZE` if the SNN exceeds GPU memory.
+
+| Environment variable | Default and purpose |
+|---|---|
+| `SNN_DEVICE` | `auto` chooses CUDA if available, otherwise CPU; `cpu` forces CPU; `cuda:N` requires a visible GPU index |
+| `SNN_BATCH_SIZE` | `128`; reduce for smaller local GPUs |
+| `SNN_NUM_WORKERS` | `0` on Windows notebooks to avoid worker-spawn issues; `2` elsewhere |
+| `SNN_QUICK_RUN` | `0`; `1` uses the existing small-subset, two-epoch check |
+
+For a GTX 1080 Ti, [NVIDIA lists compute capability 6.1](https://developer.nvidia.com/cuda/gpus/legacy). Use a wheel that supports the card; a CUDA version label alone does not establish compatibility. The setup prints `torch.cuda.get_arch_list()` and checks an actual operation. If a current wheel omits the architecture, consult [PyTorch's previous-version builds](https://pytorch.org/get-started/previous-versions/). This notebook uses one selected device, including when multiple GPUs are available. GPU power readings are optional and enabled only when NVML can identify that same GPU by UUID.
+
+Run the focused setup tests with `python -m unittest discover -s tests -p test_local_gpu.py -v`.
+
+Marcus's speaker notes for slides 2, 3, 4 part 1, 5, 6 and 10 are in [PDF](docs/speaker_notes.pdf) and [editable text](docs/speaker_notes.txt).
 
 CIFAR-10 downloads automatically the first time you run it. Results and plots are saved to `outputs/` (on Kaggle, download them from the Output tab and put them in `outputs/` here).
 

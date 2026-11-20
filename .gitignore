@@ -16,3 +16,6 @@ outputs/*.pt
 Thumbs.db
 .vscode/
 .idea/
+
+# Local verification renders and scratch files
+tmp/

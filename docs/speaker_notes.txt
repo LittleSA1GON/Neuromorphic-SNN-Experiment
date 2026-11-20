@@ -1,0 +1,120 @@
+SNN and ANN Presentation Speaker Notes
+
+Marcus Vu - slides 2, 3, 4 part 1, 5, 6 and 10. About 5 to 6 minutes, excluding handoffs. Numbering follows snn_vs_ann_presentation_2_3.html.
+
+Slide 2  Table of contents - 20 seconds
+
+Cue: Brief roadmap. Do not read every page number.
+
+We will start with the energy problem and why hardware matters for spiking networks. Then we
+will introduce CIFAR-10 and our matched CNN and SNN architectures. After explaining the changes
+we made, we will compare accuracy, speed and energy, and finish with the conclusions and
+questions.
+
+Transition: First, here is the problem we are trying to address.
+
+
+Slide 3  Problem - 45 to 55 seconds
+
+Cue: Point to the research question on the right.
+
+As neural networks become larger, they require more computation, electricity and cooling. That
+motivates us to ask whether a different kind of neural network can perform the same task more
+efficiently.
+
+Spiking neural networks take inspiration from the brain. They communicate using discrete
+spikes, and sparse activity can reduce arithmetic and communication on suitable hardware. That
+makes them interesting, but it does not guarantee savings on an ordinary GPU.
+
+Our question is whether an SNN can approach a conventional CNN's image-classification accuracy
+while costing less to run. We compare both models on the same dataset and look at accuracy
+alongside runtime, memory and energy.
+
+Transition: To understand the energy comparison, we first need to consider the hardware.
+
+
+Slide 4 Part 1  CPU and GPU hardware - 40 to 50 seconds
+
+Cue: Explain the left GPU/CPU diagram only. Hand over before revealing the right-hand neuromorphic panel.
+
+On the left is a simplified view of a conventional computer. Memory stores the model weights
+and activations, and the processor performs the calculations. Moving data between storage and
+computation also consumes energy. Actual CPUs and GPUs use caches and several levels of memory,
+but the diagram shows the main idea.
+
+In our dense PyTorch implementation, a zero activation does not automatically cause the
+corresponding tensor operation to be skipped. The SNN also simulates several time steps. So
+having fewer spikes does not, by itself, make this implementation cheaper on a GPU.
+
+Transition: That is why the hardware matters. Ethan will explain the neuromorphic side next.
+
+
+Slide 5  Dataset and preprocessing - 55 to 65 seconds
+
+Cue: Point to the original class examples, then the augmented images.
+
+We use CIFAR-10, which contains sixty thousand color images across ten balanced classes. Each
+image is only thirty-two by thirty-two pixels. The standard split has fifty thousand training
+images and ten thousand test images. The examples show one image from each class.
+
+We convert the images to tensors and normalize each color channel. During training, we also use
+random crops with four pixels of padding, horizontal flips, color jitter and rotations of up to
+ten degrees. These variations help the model learn features that generalize instead of
+memorizing the training images.
+
+The test images receive normalization but no random augmentation. Both models use the same
+preprocessing. The color-jitter example here is exaggerated to make the visual difference
+easier to see.
+
+Transition: With the data held consistent, we can compare the two model designs.
+
+
+Slide 6  Matched model architecture - 55 to 65 seconds
+
+Cue: Trace the top pipeline from left to right, then compare the two rows.
+
+Both models use the same compact convolutional structure. There are three stages with sixty-
+four, one hundred twenty-eight and two hundred fifty-six channels. Each stage has two
+convolutions followed by pooling. The classifier then uses a fully connected layer with two
+hundred fifty-six units and an output layer for the ten classes.
+
+In the CNN, each convolution is followed by batch normalization and a ReLU activation. In the
+SNN, we use temporal effective batch normalization, or TEBN, and leaky integrate-and-fire
+neurons.
+
+The CNN processes each image once. The SNN receives the same image over four time steps and
+averages its output logits. TEBN adds only twenty-four parameters: six normalization layers
+times four steps. The extra time steps are why we also compare computational cost.
+
+Transition: Ethan will now explain how the spiking neuron and its training method work.
+
+
+Slide 10  Changes and enhancements - 65 to 80 seconds
+
+Cue: Explain the reduced training setup, then distinguish existing measurements from your local-GPU addition.
+
+This is a simplified reproduction of the paper's method. We use a smaller six-convolution
+network with about two point two million parameters and a thirty-epoch training budget. The
+comparison recipe uses SGD with Nesterov momentum, a starting learning rate of zero point zero
+five, a cosine schedule and batch size one hundred twenty-eight.
+
+The project also compares practical cost through power, memory, GPU utilization, throughput and
+latency. Operation counts and per-layer firing rates provide a separate estimate of potential
+arithmetic savings. The neuromorphic-chip figures are estimates; we did not deploy this network
+on those chips.
+
+My small implementation contribution makes the existing notebook easier to run on a local
+NVIDIA GPU. It adds explicit device selection, an early CUDA compatibility check, adjustable
+batch size and safer Windows data loading. These are setup improvements, with no new accuracy
+claim.
+
+Transition: Next, we can look at the reported accuracy and hardware-cost results.
+
+
+Rehearsal reminders
+
+The brain/computer power comparison on slide 3 is motivation, not a controlled CIFAR-10 benchmark.
+A silent neuron can still incur state or hardware overhead. Avoid saying all zero activity is free.
+The 24 added parameters are learned temporal scales, not 24 extra neurons.
+The slides report Kaggle T4 results. Local-GPU setup work is not a new training run.
+Source: supplied HTML presentation and notebooks/snn_vs_ann_tebn.ipynb.
