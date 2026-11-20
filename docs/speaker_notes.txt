@@ -62,9 +62,8 @@ random crops with four pixels of padding, horizontal flips, color jitter and rot
 ten degrees. These variations help the model learn features that generalize instead of
 memorizing the training images.
 
-The test images receive normalization but no random augmentation. Both models use the same
-preprocessing. The color-jitter example here is exaggerated to make the visual difference
-easier to see.
+Both models use the same preprocessing. The color-jitter example here is exaggerated to make
+the visual difference easier to see.
 
 Transition: With the data held consistent, we can compare the two model designs.
 
