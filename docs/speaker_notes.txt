@@ -1,36 +1,99 @@
 SNN and ANN Presentation Speaker Notes
 
 Marcus Vu - slides 2, 3, 4 part 1, 5, 6 and 10
+About 6 minutes at a steady pace, with 721 spoken words. Timing covers your sections only.
 
-Slide 2  Table of contents
+Slide 2  Table of contents [0:00-0:20]
 
-- Roadmap: the energy problem, dataset, models, project changes, results and conclusions.
+We will begin with the energy problem and why the choice of hardware matters. Then we will
+introduce the dataset and the two models, explain the changes to the original method, and
+compare accuracy, speed and energy before discussing the main conclusions.
 
-Slide 3  Problem
 
-- Larger neural networks require more computation and energy.
-- We ask whether spike-based processing can achieve similar accuracy at a lower cost.
+Slide 3  Problem [0:20-1:30]
 
-Slide 4 Part 1  CPU and GPU hardware
+The main motivation is that neural networks need more resources as they become larger. Running
+them requires computation and electricity, and the hardware also needs cooling. This creates an
+incentive to ask whether we can achieve useful performance with a different way of processing
+information.
 
-- Moving weights and activations between memory and processing adds energy cost.
-- Dense GPU operations and repeated SNN time steps can limit savings from sparse spikes.
+Spiking neural networks are inspired by how biological neurons communicate. Instead of passing
+real-valued activations, neurons send discrete events called spikes. When activity is sparse,
+suitable hardware may perform less arithmetic and move less information.
 
-Slide 5  Dataset and preprocessing
+That gives us the question behind this project: can a spiking network approach the image-
+classification accuracy of a conventional CNN while using fewer resources? We keep the dataset
+and overall network structure consistent so that the change in processing is the main
+comparison. Accuracy and energy must be considered together, because saving energy matters only
+if the model still performs the task well.
 
-- CIFAR-10 has 60,000 small color images in ten classes, split into 50,000 training and 10,000
-  test images.
-- Normalize the images and augment training with random crops, flips, color jitter and
-  rotations. Both models use the same preprocessing.
 
-Slide 6  Model architecture
+Slide 4 Part 1  CPU and GPU hardware [1:30-2:30]
 
-- Both networks share a compact convolutional structure to keep model capacity similar.
-- The CNN makes one pass. The SNN uses spiking neurons, temporal normalization (TEBN) and four
-  time steps.
+This slide shows a simplified view of conventional CPU and GPU hardware. Model weights and
+intermediate values are stored in memory, then brought to the processor for calculation. Moving
+that data consumes energy, so the cost of running a network includes both computation and
+communication.
 
-Slide 10  Changes and enhancements
+A key point is that sparse neural activity does not automatically turn into savings on this
+hardware. Our PyTorch implementation uses dense tensor operations, so many zero inputs still
+participate in the computation. The SNN also repeats processing over several time steps for
+each image.
 
-- A smaller model and a 30-epoch training budget make the paper's approach practical for this
-  project.
-- Compare measured GPU costs with separate energy estimates from operation counts.
+This is why we measure actual performance. The hardware determines how much of the potential
+sparsity advantage becomes a real benefit.
+
+
+Slide 5  Dataset and preprocessing [2:30-3:40]
+
+CIFAR-10 gives both models the same image-classification task. It contains sixty thousand small
+color images across ten balanced classes, including objects such as cars, airplanes and
+animals. The standard split uses fifty thousand images for training and ten thousand for
+testing.
+
+Before training, we convert the images into tensors and normalize each color channel. We also
+use random crops, horizontal flips, color jitter and small rotations to create variation in the
+training examples.
+
+The purpose of augmentation is to help a model recognize the important visual features even
+when an image looks slightly different. For example, an object should remain recognizable after
+a small rotation or a change in color.
+
+Both models receive the same preprocessing. This keeps the data conditions consistent, so
+differences in performance are easier to relate to how the models work.
+
+
+Slide 6  Model architecture [3:40-4:50]
+
+The CNN and SNN share the same compact convolutional structure. Convolutional layers learn
+visual patterns, pooling reduces the size of the feature maps, and the classifier produces a
+prediction for one of the ten classes. Keeping the overall structure and capacity similar makes
+the comparison more controlled.
+
+The difference is how activity moves through the network. The CNN uses conventional activations
+and processes each image in one forward pass. The SNN uses spiking neurons that accumulate
+input and communicate through spikes.
+
+The SNN also uses temporal effective batch normalization, or TEBN, to help normalize activity
+across time. It receives the same image over four time steps and averages the outputs to make
+its prediction. The extra temporal processing is one reason we compare speed and energy
+alongside classification accuracy. Similar parameter counts therefore do not imply the same
+amount of computation.
+
+
+Slide 10  Changes and enhancements [4:50-6:00]
+
+Our implementation is a simplified reproduction of the paper's method. We use a smaller network
+and a thirty-epoch training budget to make the experiments manageable with the available
+computing resources. Both models use the same optimizer and learning-rate schedule so that the
+training setup remains consistent.
+
+We also examine more than the final accuracy. Runtime, memory use, GPU utilization and power
+help describe the practical cost of running each model. Firing rates show how active the
+spiking network is, while operation counts support a separate theoretical energy estimate.
+
+It is important to keep those estimates separate from the GPU measurements. An operation-based
+estimate describes potential arithmetic costs under specific assumptions. It does not
+demonstrate that the model has been deployed on a neuromorphic chip or that the same savings
+will appear in a complete hardware system. A complete hardware result would also depend on data
+movement and other overheads.
